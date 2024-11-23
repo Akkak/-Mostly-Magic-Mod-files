@@ -1,0 +1,32 @@
+{
+    "ModTitle": "(Mostly) Magic Mod",
+    "ModVersion": "0.7.1-unofficial",
+    "ModAuthor": "meritamas",
+    "ContactInfo": "meritamas@meritamas.net",
+    "DFUnity_Version": "1.1.1",
+    "ModDescription": "Meritamas's (Mostly) Magic Mod with unnoficial fix for potion calculations. See github for details",
+    "GUID": "e0eaea41-89bb-4253-9dd4-257b551298b6",
+    "Files": [
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Mostly.dfmod.json",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/MTMostlyMagicMod.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/MMMConsoleCommands.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/MMMFormulaHelper.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/MTRoads.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/MMMEffectAndSpellHandler.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/MMMMessages.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/MTRecalcStats.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/MMMXPTallies.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/Windows/MTSpellMakerWindow.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/Windows/MTSpellBookWindow.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/Integrated/MTMeanerMonsters.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/Integrated/MTUnleveledMobs.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/Effects/MTSlowfall.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/Effects/MTRepairItem.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/Effects/MTTeleport.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/Effects/MTUmbrella.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/Effects/MTDryClothes.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/Effects/MTMultiplyProvisions.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/Scripts/Effects/MTSummonSimpleItem.cs",
+        "Assets/Game/Mods/Mostly-Magic-Mod-files/modsettings.json"
+    ]
+}

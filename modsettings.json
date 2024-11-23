@@ -1,0 +1,319 @@
+{
+    "Version": "0.7a",
+    "Sections": [
+        {
+            "Name": "UnleveledAndExtraStrongEnemies",
+            "Description": null,
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": true,
+                    "Name": "UnleveledAndExtraStrongEnemies-Main",
+                    "Description": "Unleveled enemies - if off, the other module settings are not used.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": true,
+                    "Name": "ExtraStrongMonsters",
+                    "Description": "Whether the Extra Strong Monsters feature should be on or off",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Options": [
+                        "Vanilla",
+                        "mmm1"
+                    ],
+                    "Value": 0,
+                    "Name": "EnemySpellMissileSpeed",
+                    "Description": "Choose how spell missile speeds are calculated for enemies",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.MultipleChoiceKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "EverydayMagic",
+            "Description": null,
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": true,
+                    "Name": "UnleveledSpellsAndPotions",
+                    "Description": "Spell levels calculated using MMM formula",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 1,
+                    "Max": 10,
+                    "Value": 5,
+                    "Name": "MinimumSpellPointCost",
+                    "Description": "The minimum magicka cost of casting a spell is 1 (instead of 5)",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Min": 3.0,
+                    "Max": 7.0,
+                    "Value": 5.0,
+                    "Name": "GuildBaseSpellFeeCoefficient",
+                    "Description": "Guild Fee for a Spell = this * SpellPointCost of the Spell",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "SpellLearning",
+                    "Description": "Costs time, fatigue and magicka to learn spells (regs Mt SpellBook and SpellMaker Window)",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "ExperienceTallies",
+                    "Description": "Effective skill level calculated based on recorded player experience with Element, TargetType and Effects",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "StrongSpellsAdvanceMagicSkillsMore",
+                    "Description": "Extra skill advancement points tallied for stronger spells (requires Xp tallies)",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "DiversifiedSpellExperienceRequiredForMagicSkillAdvancement",
+                    "Description": "Casting a spell lots of times will not get you to Magic School mastery fast (requires XP tallies)",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "EffectConfidentialityLevels",
+                    "Description": "Solid standing in guild required for certain spells/effects (regs MT SpellBook and SpellMaker Window)",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "SpellInstructorThemes",
+                    "Description": "Not all spells are available everywhere (only effective is EffectConfidentialityLevels on)",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Min": 1.0,
+                    "Max": 7.0,
+                    "Value": 4.0,
+                    "Name": "SpellCreationTimeCoefficient",
+                    "Description": "TimeCost of New Spell Creation = Coeff * TimeCost of Learning a Spell",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderFloatKey"
+                },
+                {
+                    "Min": 22,
+                    "Max": 40,
+                    "Value": 30,
+                    "Name": "MaxLengthOfDisplayedSpellNameString",
+                    "Description": "Number of characters shown for a given spell in SpellBookWindow (MtSpellBookWindow required)",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "DisplayEffectiveMagicSkill",
+                    "Description": "Show effective magic skill for simple spells (MTSpellBookWindow required)",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Options": [
+                        "Vanilla",
+                        "mmm1",
+                        ""
+                    ],
+                    "Value": 0,
+                    "Name": "PlayerSpellMissileSpeed",
+                    "Description": "Choose how spell missile speeds are calculated. Requires XP tallies.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.MultipleChoiceKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "EffectsAndSpells",
+            "Description": null,
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": false,
+                    "Name": "FixItem",
+                    "Description": "The FixItem spell effect along with the Reparo and Reparo Parvulus spells",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "RebalanceSlowFallToThaumaturgy",
+                    "Description": "Currently Does Nothing - The Snowfall effect will belong to Thaumaturgy and not Alteration",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "ConjurationCreation",
+                    "Description": "MultiplyProvisions (waterskin, rations, arrows) + SummonSimpleItem (An override to classic CreateItem)",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "MultipleAnchorsForRecall",
+                    "Description": "Enables the advanced override to the classic's Teleport effect (Recall spell)",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "DispelDoesNotEraseAnchors",
+                    "Description": "Requires MultipleAnchorsForRecall - stops the anchors from being destroyed if Teleport-Effect dispelled",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "ClimatesCalories",
+                    "Description": "Currently does not work - Anti-water protection, Cleak-Drier",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "HighMagic",
+            "Description": null,
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Min": -1,
+                    "Max": 15,
+                    "Value": 0,
+                    "Name": "SlowTime",
+                    "Description": "Effect - speed up PC cognition - slowing time for the player - does not work",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.SliderIntKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "EverydayNonMagic",
+            "Description": null,
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": false,
+                    "Name": "IntegrateMeanerMonsters",
+                    "Description": "Integrates a version of Hazelnut & Ralzar's MeanerMonsters",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "IntegrateUnleveledMobs",
+                    "Description": "Integrates a version of Jay_H's Unleveled Mobs without 'Unleveled Quests'.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "Earth-LikeSunLightDirections",
+                    "Description": "This does not do anything at the moment. Will probably stay this way for a while.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "Roads",
+                    "Description": "Currently does nothing. It will include code for developing a Roads algorithm",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "Quests",
+                    "Description": "Currently does nothing. It will include code for developing Quest System related features.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "QualityOfLife",
+            "Description": null,
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": false,
+                    "Name": "ExerciseFastTravel",
+                    "Description": "A feature to gain skill while traveling fast + key speeds simulation, - slows it back down",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "MTFavoritePhysicalCombatFurmulas",
+                    "Description": "Currently does nothing - apply my PhysicalCombat forulas taken from other mods",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "DebugAndExperimental",
+            "Description": null,
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": false,
+                    "Name": "DebugToHUD",
+                    "Description": "If on, calculation data will be displayer on the HUD",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                },
+                {
+                    "Value": false,
+                    "Name": "DebugToLog",
+                    "Description": "If on, calculation data will be saved into player.log",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
+        },
+        {
+            "Name": "AndExtraStrongEnemies",
+            "Description": null,
+            "IsAdvanced": false,
+            "Keys": [
+                {
+                    "Value": false,
+                    "Name": "UnleveledAndExtraStrongEnemies-Main",
+                    "Description": "Unnofficial patch - this flag was required by Unity environment, I didn't check what it does.",
+                    "$version": "v1",
+                    "$type": "DaggerfallWorkshop.Game.Utility.ModSupport.ModSettings.ToggleKey"
+                }
+            ],
+            "$version": "v1"
+        }
+    ]
+}

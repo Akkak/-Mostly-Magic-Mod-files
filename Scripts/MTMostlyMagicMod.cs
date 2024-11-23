@@ -40,11 +40,11 @@ using DaggerfallConnect.Utility;
 
 namespace MTMMM
 {
-    #region SaveLoad Definitions    
+    #region SaveLoad Definitions
 
     [FullSerializer.fsObject("v1")]
     public class MMMSaveData
-    {        
+    {
         public SpellXPTally[] SpellXPTallies;
         public int AlchemyXPTally;
         public int EXPTally;          // E=Extra or Enchantment - will likely not need this for enchantment, but will keep this here just in case
@@ -55,36 +55,36 @@ namespace MTMMM
 
     public class MTMostlyMagicMod : MonoBehaviour, IHasModSaveData
     {
-        //static MMMSaveData savedData = new MMMSaveData();        
+        //static MMMSaveData savedData = new MMMSaveData();
         static MTMostlyMagicMod instance;       // this was added to facilitate the SaveLoad function
         static Mod modInstance;
         static ModSettings ourModSettings;
 
-            // field used both by Advanced Teleportation and Unleveled Enemies
+        // field used both by Advanced Teleportation and Unleveled Enemies
         static DaggerfallMessageBox MessageBox;
         public static int HUDLineLength = 120;
 
-            // these fields are for Advanced Teleportation
+        // these fields are for Advanced Teleportation
 
         public static bool shouldEraseAdvancedTeleportEffect = false;
 
         static bool problem = false;    // used for Advanced Teleportation
 
-            // these fields are for Unleveled Enemies
+        // these fields are for Unleveled Enemies
         static public int luckMod;
         static public int matRoll;
         static public int region = 0;
         static public int dungeon = 0;
         static public int savedDDL = -1;
-        
+
         static public int mapXCoord = 0;
         static public int mapYCoord = 0;
 
-            // these fields are for UnleveledSpells        
+        // these fields are for UnleveledSpells
         public static string BasicGreetingsMessage = "Spell effects unleveled:";
-        public static string greetingMessageToPlayerUnleveledSpells;   // this is used to communicate to the appropriate method the string message that needs to be conveyed 
+        public static string greetingMessageToPlayerUnleveledSpells;   // this is used to communicate to the appropriate method the string message that needs to be conveyed
 
-            // these fields are for TimeAccelerator
+        // these fields are for TimeAccelerator
         static float baseFixedDeltaTime;
         static float baseTimeScale;
         static int timeAcceleratorMultiple;
@@ -111,15 +111,15 @@ namespace MTMMM
                 MessageBox.SetText(message);
                 DaggerfallUI.UIManager.PushWindow(MessageBox); */
             }
-        }             
+        }
 
         public void Awake()
         {
-            RegisterOurWindows();            // eventually will need restructuring: other preconditions could prompt the necessity of registering our SpellBookWindow 
+            RegisterOurWindows();            // eventually will need restructuring: other preconditions could prompt the necessity of registering our SpellBookWindow
 
             if (ourModSettings.GetValue<bool>("EverydayNonMagic", "Earth-LikeSunLightDirections"))
             {
-                //  GameManager.Instance.SunlightManager.Angle = -40f;      this code does not work ; but this is where the code that does the job should go 
+                //  GameManager.Instance.SunlightManager.Angle = -40f;      this code does not work ; but this is where the code that does the job should go
             }
 
             if (ourModSettings.GetValue<bool>("EverydayNonMagic", "IntegrateMeanerMonsters"))
@@ -140,7 +140,7 @@ namespace MTMMM
                 InitUnleveledEnemiesOnAwake();
         }
 
-                // These are the things the mod should do after each 'update' (I think every ??? seconds or so)
+        // These are the things the mod should do after each 'update' (I think every ??? seconds or so)
         void Update()
         {
             if (ourModSettings.GetValue<bool>("QualityOfLife", "ExerciseFastTravel"))
@@ -177,21 +177,21 @@ namespace MTMMM
         [Invoke(StateManager.StateTypes.Game, 1)]
         public static void GiveInfoToPlayer(InitParams initParams)
         {
-                    //GiveInfoToPlayer
+            //GiveInfoToPlayer
             if (problem)
                 Message("Problem adding Advanced Teleport", true, true, true, true);
             else
                 SilentMessage("Override for Teleport (Recall) (Advanced Teleportation) successfully registered.");
 
             if (ourModSettings.GetValue<bool>("QualityOfLife", "ExerciseFastTravel"))
-                InitTimeAcceleratorPart();            
+                InitTimeAcceleratorPart();
 
             if (ourModSettings.GetValue<int>("EverydayMagic", "PlayerSpellMissileSpeed") == 1)
-                            // TODO: check if condition correct
+            // TODO: check if condition correct
             {
                 MMMXPTallies.SetMissileSpeedsInPrefabs();        // set the missile speeds once when the game is loaded
                 GameManager.Instance.PlayerSpellCasting.OnReleaseFrame += MMMXPTallies.SetMissileSpeedsInPrefabs;
-                                // register the routine to set the missile speeds after each player spellcast based on new experience data
+                // register the routine to set the missile speeds after each player spellcast based on new experience data
             }
         }
 
@@ -206,7 +206,7 @@ namespace MTMMM
             modInstance = ModManager.Instance.GetMod(modTitle);
             ourModSettings = modInstance.GetSettings();
             MMMXPTallies.CalculationDebugToPlayer = true;
-        }        
+        }
 
         /// <summary>
         /// Initialize the Unleveled Enemies parts
@@ -219,10 +219,10 @@ namespace MTMMM
             // GameObject go2 = new GameObject(modInstance.Title);      // part added to general init in order to init save/load features
             // go2.AddComponent<MTMostlyMagicMod>();   // initializing the Unleveled and Extra Strong enemies part
 
-            SilentMessage("Enemy prefab changed successfully");            
+            SilentMessage("Enemy prefab changed successfully");
 
             SilentMessage("InitUnleveledEnemies module init method Finished");
-        }        
+        }
 
         /// <summary>
         /// finish initialization:
@@ -245,7 +245,7 @@ namespace MTMMM
 
             GameObject go2 = new GameObject(modInstance.Title);
             instance = go2.AddComponent<MTMostlyMagicMod>();
-            modInstance.SaveDataInterface = instance;               // this part is responsible for initializing the Save/Load feature      
+            modInstance.SaveDataInterface = instance;               // this part is responsible for initializing the Save/Load feature
 
             InitNewSpellsAndEffects();
 
@@ -265,7 +265,7 @@ namespace MTMMM
                 ConsoleCommandsDatabase.RegisterCommand("MT-AboutLocation", MMMConsoleCommands.MTAboutLocation);
             }
 
-            EndInit();          // Finish Mod Initialization            
+            EndInit();          // Finish Mod Initialization
         }
         #endregion
 
@@ -277,7 +277,7 @@ namespace MTMMM
         {
             if (ourModSettings.GetValue<bool>("EffectsAndSpells", "MultipleAnchorsForRecall"))
             {
-                MTTeleport.DispelDoesNotRemoveAnchors = ourModSettings.GetValue<bool>("EffectsAndSpells", "DispelDoesNotEraseAnchors");                
+                MTTeleport.DispelDoesNotRemoveAnchors = ourModSettings.GetValue<bool>("EffectsAndSpells", "DispelDoesNotEraseAnchors");
 
                 BaseEntityEffect ourTeleportEffect = new MTTeleport();
 
@@ -289,7 +289,7 @@ namespace MTMMM
                     SilentMessage("MTTeleport effect successfully registered.");
 
                 ConsoleCommandsDatabase.RegisterCommand("advanced-teleport-kill", MMMConsoleCommands.SaveOrNotToSaveLegacyAdvancedTeleportation);
-            }                                 
+            }
 
             if (ourModSettings.GetValue<bool>("EffectsAndSpells", "FixItem"))
                 RegisterFixItem();
@@ -302,7 +302,7 @@ namespace MTMMM
 
 
             if (ourModSettings.GetValue<bool>("EffectsAndSpells", "ClimatesCalories"))
-                RegisterClimatesCaloriesEffectsAndSpells(); // We'll test for C&C where we need to and prepare the code for the case C&C is not present 
+                RegisterClimatesCaloriesEffectsAndSpells(); // We'll test for C&C where we need to and prepare the code for the case C&C is not present
 
         }
 
@@ -311,7 +311,7 @@ namespace MTMMM
             MTSlowfall templateEffect = new MTSlowfall();
             if (!GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(templateEffect, true))
             {
-                Message("Slowfall effect could not be rebalanced to Thaumaturgy");                
+                Message("Slowfall effect could not be rebalanced to Thaumaturgy");
             }
             else
             {
@@ -319,8 +319,8 @@ namespace MTMMM
             }
         }
 
-        
-        public static void RegisterFixItem()           
+
+        public static void RegisterFixItem()
         {
             // First register custom effect with broker
             // This will make it available to crafting stations supported by effect
@@ -337,7 +337,7 @@ namespace MTMMM
 
             // Create effect settings for our custom spell
             // These are Chance, Duration, and Magnitude required by spell - usually seen in spellmaker
-            // No need to define settings not used by effect            
+            // No need to define settings not used by effect
             EffectSettings effectSettings = new EffectSettings()
             {
                 MagnitudeBaseMin = 1,
@@ -386,10 +386,10 @@ namespace MTMMM
             // Register the offer
             GameManager.Instance.EntityEffectBroker.RegisterCustomSpellBundleOffer(minorRepairOffer);
 
-            EffectSettings effectSettings2 = new EffectSettings()   {   MagnitudeBaseMin = 1, MagnitudeBaseMax = 1, MagnitudePlusMin = 2, MagnitudePlusMax = 2, MagnitudePerLevel = 1,      };
-           
-            EffectEntry effectEntry2 = new EffectEntry()            {   Key = templateEffect.Properties.Key,         Settings = effectSettings2,          };
-                        
+            EffectSettings effectSettings2 = new EffectSettings() { MagnitudeBaseMin = 1, MagnitudeBaseMax = 1, MagnitudePlusMin = 2, MagnitudePlusMax = 2, MagnitudePerLevel = 1, };
+
+            EffectEntry effectEntry2 = new EffectEntry() { Key = templateEffect.Properties.Key, Settings = effectSettings2, };
+
             EffectBundleSettings repairSpell = new EffectBundleSettings()
             {
                 Version = EntityEffectBroker.CurrentSpellVersion,
@@ -400,22 +400,22 @@ namespace MTMMM
                 IconIndex = 1,
                 Effects = new EffectEntry[] { effectEntry2 },
             };
-            
+
             EntityEffectBroker.CustomSpellBundleOffer repairOffer = new EntityEffectBroker.CustomSpellBundleOffer()
             {
-                Key = "Reparo-CustomOffer",                           
-                Usage = EntityEffectBroker.CustomSpellBundleOfferUsage.SpellsForSale, 
-                                                                                     
-                BundleSetttings = repairSpell               
+                Key = "Reparo-CustomOffer",
+                Usage = EntityEffectBroker.CustomSpellBundleOfferUsage.SpellsForSale,
+
+                BundleSetttings = repairSpell
             };
-           
-            GameManager.Instance.EntityEffectBroker.RegisterCustomSpellBundleOffer(repairOffer);            
+
+            GameManager.Instance.EntityEffectBroker.RegisterCustomSpellBundleOffer(repairOffer);
         }
 
 
         public static void RegisterConjurationCreationEffectsAndSpells()
         {
-                    // first, registering the override to DFU's CreateItem, our MTSummonSimpleItem - a Conjuration effect that will create permanent items, but won't always succeed
+            // first, registering the override to DFU's CreateItem, our MTSummonSimpleItem - a Conjuration effect that will create permanent items, but won't always succeed
             BaseEntityEffect registeredEffect = new MTSummonSimpleItem();
 
             problem = !GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(registeredEffect, true);
@@ -425,7 +425,7 @@ namespace MTMMM
             else
                 SilentMessage("MTSummonSimpleItem effect successfully registered.");
 
-                    // now, to register MTMultiplyProvisions - a simple Conjuration effect that will based on player choice multiply either the water in your waterskin (refill), your rations (regenerate food) or arrows (summon) 
+            // now, to register MTMultiplyProvisions - a simple Conjuration effect that will based on player choice multiply either the water in your waterskin (refill), your rations (regenerate food) or arrows (summon)
 
             registeredEffect = new MTMultiplyProvisions();
 
@@ -436,7 +436,7 @@ namespace MTMMM
             else
                 SilentMessage("MTMultiplyProvisions effect successfully registered.");
 
-                    // now, registering Abundantia, an MTMultiplyProvisions spell
+            // now, registering Abundantia, an MTMultiplyProvisions spell
             EffectSettings effectSettings = new EffectSettings() { MagnitudeBaseMin = 1, MagnitudeBaseMax = 1, MagnitudePlusMin = 1, MagnitudePlusMax = 1, MagnitudePerLevel = 1, };
             EffectEntry effectEntry = new EffectEntry() { Key = registeredEffect.Properties.Key, Settings = effectSettings, };
             EffectBundleSettings effectBundleSettings = new EffectBundleSettings()
@@ -460,7 +460,7 @@ namespace MTMMM
 
         public static void RegisterClimatesCaloriesEffectsAndSpells()
         {
-                    // first registering the MTUmbrella effect 
+            // first registering the MTUmbrella effect
             BaseEntityEffect ourRegisteredEffect = new MTUmbrella();
 
             problem = !GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(ourRegisteredEffect, true);
@@ -470,42 +470,50 @@ namespace MTMMM
             else
                 SilentMessage("MTUmbrella effect successfully registered.");
 
-                    // now, registering two standardized MTUmbrella spells: Brevi Tempore Sine Pluvia and Sine Pluvia
-                    // first, Brevi Tempore Sine Pluvia
-            EffectSettings effectSettings = new EffectSettings()  { DurationBase = 2, DurationPlus = 1, DurationPerLevel = 1, };
-            EffectEntry effectEntry = new EffectEntry()  {   Key = ourRegisteredEffect.Properties.Key, Settings = effectSettings, };
-            EffectBundleSettings effectBundleSettings = new EffectBundleSettings()            {
+            // now, registering two standardized MTUmbrella spells: Brevi Tempore Sine Pluvia and Sine Pluvia
+            // first, Brevi Tempore Sine Pluvia
+            EffectSettings effectSettings = new EffectSettings() { DurationBase = 2, DurationPlus = 1, DurationPerLevel = 1, };
+            EffectEntry effectEntry = new EffectEntry() { Key = ourRegisteredEffect.Properties.Key, Settings = effectSettings, };
+            EffectBundleSettings effectBundleSettings = new EffectBundleSettings()
+            {
                 Version = EntityEffectBroker.CurrentSpellVersion,
                 BundleType = BundleTypes.Spell,
                 TargetType = TargetTypes.CasterOnly,
                 ElementType = ElementTypes.Magic,
                 Name = "Brevi Sine Pluvia",
                 IconIndex = 2,
-                Effects = new EffectEntry[] { effectEntry },            };
-            EntityEffectBroker.CustomSpellBundleOffer registeredOffer = new EntityEffectBroker.CustomSpellBundleOffer()            {
-                Key = "BreviTemporeSinePluvia-CustomOffer",                           
-                Usage = EntityEffectBroker.CustomSpellBundleOfferUsage.SpellsForSale,                                                                                       
-                BundleSetttings = effectBundleSettings                    };
+                Effects = new EffectEntry[] { effectEntry },
+            };
+            EntityEffectBroker.CustomSpellBundleOffer registeredOffer = new EntityEffectBroker.CustomSpellBundleOffer()
+            {
+                Key = "BreviTemporeSinePluvia-CustomOffer",
+                Usage = EntityEffectBroker.CustomSpellBundleOfferUsage.SpellsForSale,
+                BundleSetttings = effectBundleSettings
+            };
             GameManager.Instance.EntityEffectBroker.RegisterCustomSpellBundleOffer(registeredOffer);
-            
-                    // second  Sine Pluvia
+
+            // second  Sine Pluvia
             effectSettings = new EffectSettings() { DurationBase = 1, DurationPlus = 3, DurationPerLevel = 1, };
             effectEntry = new EffectEntry() { Key = ourRegisteredEffect.Properties.Key, Settings = effectSettings, };
-            EffectBundleSettings umbrellaSpell = new EffectBundleSettings()            {
+            EffectBundleSettings umbrellaSpell = new EffectBundleSettings()
+            {
                 Version = EntityEffectBroker.CurrentSpellVersion,
                 BundleType = BundleTypes.Spell,
                 TargetType = TargetTypes.CasterOnly,
                 ElementType = ElementTypes.Magic,
                 Name = "Sine Pluvia",
                 IconIndex = 2,
-                Effects = new EffectEntry[] { effectEntry },            };
-            EntityEffectBroker.CustomSpellBundleOffer umbrellaOffer = new EntityEffectBroker.CustomSpellBundleOffer()            {
-                Key = "SinePluvia-CustomOffer",                           
-                Usage = EntityEffectBroker.CustomSpellBundleOfferUsage.SpellsForSale, 
-                BundleSetttings = umbrellaSpell,             };
+                Effects = new EffectEntry[] { effectEntry },
+            };
+            EntityEffectBroker.CustomSpellBundleOffer umbrellaOffer = new EntityEffectBroker.CustomSpellBundleOffer()
+            {
+                Key = "SinePluvia-CustomOffer",
+                Usage = EntityEffectBroker.CustomSpellBundleOfferUsage.SpellsForSale,
+                BundleSetttings = umbrellaSpell,
+            };
             GameManager.Instance.EntityEffectBroker.RegisterCustomSpellBundleOffer(umbrellaOffer);
 
-                        // now, registering the MTDryClothes effect 
+            // now, registering the MTDryClothes effect
             ourRegisteredEffect = new MTDryClothes();
 
             problem = !GameManager.Instance.EntityEffectBroker.RegisterEffectTemplate(ourRegisteredEffect, true);
@@ -515,7 +523,7 @@ namespace MTMMM
             else
                 SilentMessage("MTDryClothes effect successfully registered.");
 
-                    // now, registering a modest 'cloak-drier' spell, Ariditas
+            // now, registering a modest 'cloak-drier' spell, Ariditas
             effectSettings = new EffectSettings() { MagnitudeBaseMin = 10, MagnitudeBaseMax = 10, MagnitudePlusMin = 4, MagnitudePlusMax = 6, MagnitudePerLevel = 1, };
             effectEntry = new EffectEntry() { Key = ourRegisteredEffect.Properties.Key, Settings = effectSettings, };
             effectBundleSettings = new EffectBundleSettings()
@@ -539,37 +547,37 @@ namespace MTMMM
             // TODO: code to register RepelWater
         }
 
-        
+
         #endregion
 
         #region Unleveled and Extra Strong Enemies
-            // some accelarator code too
-        void InitUnleveledEnemiesOnAwake()              // MTMT TODO 
+        // some accelarator code too
+        void InitUnleveledEnemiesOnAwake()              // MTMT TODO
         {
             PlayerEnterExit.OnPreTransition += SetDungeon_OnPreTransition;
             PlayerEnterExit.OnTransitionExterior += ClearData_OnTransitionExterior;     // TODO: re-eval if things can be done better
             PlayerGPS.OnMapPixelChanged += SetWildernessDifficultyStuff_OnMapPixelChanged;
             EnemyDeath.OnEnemyDeath += RemoveMMMObjects_OnEnemyDeath;
         }
-                // what this seems to do is generate the dungeon difficulty level when the player actually enters the dungeon (prior to the transition to the dungeon)
-                // potential problem: this might not be needed before all transitions           // TODO: evaluate and possibly correct this
+        // what this seems to do is generate the dungeon difficulty level when the player actually enters the dungeon (prior to the transition to the dungeon)
+        // potential problem: this might not be needed before all transitions           // TODO: evaluate and possibly correct this
         private static void SetDungeon_OnPreTransition(PlayerEnterExit.TransitionEventArgs args)
         {
             region = GameManager.Instance.PlayerGPS.CurrentRegionIndex;
             dungeon = (int)GameManager.Instance.PlayerGPS.CurrentLocation.MapTableData.DungeonType;
-            savedDDL = determineDungeonDifficulty();            
+            savedDDL = determineDungeonDifficulty();
         }
 
         private static void ClearData_OnTransitionExterior(PlayerEnterExit.TransitionEventArgs args)
         {
             dungeon = -1;
             savedDDL = -1;
-        }        
+        }
 
         private static void SetWildernessDifficultyStuff_OnMapPixelChanged(DFPosition mapPixel)
         {
             mapXCoord = mapPixel.X;
-            mapYCoord = mapPixel.Y;            
+            mapYCoord = mapPixel.Y;
             SilentMessage(string.Format("MT MMM: SetWildernessDifficultyStuff_OnMapPixelChanged: Current map pixel is now [{0},{1}].", mapXCoord, mapYCoord));
         }
 
@@ -596,7 +604,7 @@ namespace MTMMM
             {
 
                 case (int)DFRegion.DungeonTypes.DragonsDen:
-                case (int)DFRegion.DungeonTypes.VampireHaunt:                
+                case (int)DFRegion.DungeonTypes.VampireHaunt:
                     DQL = 21 + modifierBasedOnHash;
                     break;
 
@@ -624,7 +632,7 @@ namespace MTMMM
                 case (int)DFRegion.DungeonTypes.HarpyNest:
                     DQL = 8 + modifierBasedOnHash;
                     break;
-                
+
                 case (int)DFRegion.DungeonTypes.NaturalCave:            // MT added, missing from Ralzar mod
                 case (int)DFRegion.DungeonTypes.ScorpionNest:
                 case (int)DFRegion.DungeonTypes.SpiderNest:
@@ -635,7 +643,7 @@ namespace MTMMM
                     SilentMessage("determineDungeonDifficulty: Possible erroneous dungeon type."); // MT: code should not reach this point
                     DQL = 8 + modifierBasedOnHash;
                     break;
-            }            
+            }
 
             SilentMessage("Determining Dungeon Difficulty; Year=" + currentYear + " Month=" + currentMonth + " X=" + X + " Y=" + Y + " sequence=" + sequence + " DQModifier=" + modifierBasedOnHash + " DQ=" + DQL);
             return DQL;
@@ -646,19 +654,19 @@ namespace MTMMM
             return savedDDL;
         }
 
-        public static int RemoveMMMObjectContained (ItemCollection itemCollection)
-        {            
+        public static int RemoveMMMObjectContained(ItemCollection itemCollection)
+        {
             List<DaggerfallUnityItem> itemsToRemove = new List<DaggerfallUnityItem>();
 
             if (itemCollection != null)
-            {                
+            {
                 int numberOfItems = itemCollection.Count;
                 if (numberOfItems > 0)
                 {
                     for (int i = 0; i < numberOfItems; i++)
                     {
                         DaggerfallUnityItem item = itemCollection.GetItem(i);
-                        if (item.shortName.Substring(0, 3) == "MMM")                        
+                        if (item.shortName.Substring(0, 3) == "MMM")
                             itemsToRemove.Add(item);
                         if (item.shortName.Substring(0, 5) == "BLMMM")
                             itemsToRemove.Add(item);
@@ -671,12 +679,12 @@ namespace MTMMM
                 itemCollection.RemoveItem(item);
             }
 
-            SilentMessage("RemoveMMMObjectContained: removed "+ itemsToRemove.Count+" MMM items from passed ItemCollection");
+            SilentMessage("RemoveMMMObjectContained: removed " + itemsToRemove.Count + " MMM items from passed ItemCollection");
 
             return itemsToRemove.Count;
         }
 
-        public static void RemoveMMMObjects_OnEnemyDeath (object sender, EventArgs e)
+        public static void RemoveMMMObjects_OnEnemyDeath(object sender, EventArgs e)
         {
             SilentMessage("RemoveMMMObjects_OnEnemyDeath has been called.");
             EnemyDeath enemyDeath = sender as EnemyDeath;
@@ -698,9 +706,9 @@ namespace MTMMM
         /// Gives the player info on whether init was successful.
         /// </summary>
         [Invoke(StateManager.StateTypes.Game, 0)]
-        public static void ReportToUser(InitParams initParams)                     
+        public static void ReportToUser(InitParams initParams)
         {
-                    // display greeting message to player, if any is needed   
+            // display greeting message to player, if any is needed
         }
         #endregion
 
@@ -710,25 +718,25 @@ namespace MTMMM
         /// </summary>
         public static void InitEverydayMagic()
         {
-                                // CONFIDENTIALITY LEVELS
+            // CONFIDENTIALITY LEVELS
             MTSpellBookWindow.confidentialityLevelsApplied = ourModSettings.GetValue<bool>("EverydayMagic", "EffectConfidentialityLevels");
             MMMEffectAndSpellHandler.applyConfidentialityLevels = ourModSettings.GetValue<bool>("EverydayMagic", "EffectConfidentialityLevels");
 
-                                // SPELL INSTRUCTOR THEMES
+            // SPELL INSTRUCTOR THEMES
             MMMEffectAndSpellHandler.applyThemes = ourModSettings.GetValue<bool>("EverydayMagic", "SpellInstructorThemes");
 
-                                // SPELL LEARNING
+            // SPELL LEARNING
             MTSpellBookWindow.spellLearning = ourModSettings.GetValue<bool>("EverydayMagic", "SpellLearning");   // this setting takes care of how our windows behave
-                    // TODO: apply setting to SpellMaker Window
+            // TODO: apply setting to SpellMaker Window
 
             MMMFormulaHelper.spellMakerCoefficientFromSettings = ourModSettings.GetValue<float>("EverydayMagic", "SpellCreationTimeCoefficient");
-                        // the routine it effects is not called if spell learning turned off
-            SilentMessage("Spell Learning parameters. SL on: {0}, SpellCreationTimeCoefficient: {1}", MTSpellBookWindow.spellLearning, MMMFormulaHelper.spellMakerCoefficientFromSettings);                    
+            // the routine it effects is not called if spell learning turned off
+            SilentMessage("Spell Learning parameters. SL on: {0}, SpellCreationTimeCoefficient: {1}", MTSpellBookWindow.spellLearning, MMMFormulaHelper.spellMakerCoefficientFromSettings);
 
-                                // XP TALLIES
+            // XP TALLIES
             MMMFormulaHelper.ApplyExperienceTallies = ourModSettings.GetValue<bool>("EverydayMagic", "ExperienceTallies");
             if (MMMFormulaHelper.ApplyExperienceTallies)
-            {               
+            {
                 ConsoleCommandsDatabase.RegisterCommand("IncrementSpellXPTally", MMMConsoleCommands.IncrementSpellXPTally);
                 // registering command to manipulate spell effect tallies by the console
 
@@ -737,50 +745,55 @@ namespace MTMMM
                     //  and have MMMFormulaHelper ignore any tallies that might have been saved in the past - by returning 1.0f as the XPTally coefficient,
                     //                                              and by bypassing any related code just to make sure we don't end up hanging the game
 
-                                // STRONG SPELLS ADVANCE MAGIC SKILLS MORE     
+            // STRONG SPELLS ADVANCE MAGIC SKILLS MORE
             MMMXPTallies.strongSpellsAdvanceMagicSkillsMore = ourModSettings.GetValue<bool>("EverydayMagic", "StrongSpellsAdvanceMagicSkillsMore");
 
-                                // DIVERSIFIED SPELL EXPERIENCE REQUIRED FOR MAGIC SKILL ADVANCEMENT
-            MMMXPTallies.diversifiedSpellExperienceRequiredForMagicSkillAdvancement = ourModSettings.GetValue<bool>("EverydayMagic", "DiversifiedSpellExperienceRequiredForMagicSkillAdvancement");            
+            // DIVERSIFIED SPELL EXPERIENCE REQUIRED FOR MAGIC SKILL ADVANCEMENT
+            MMMXPTallies.diversifiedSpellExperienceRequiredForMagicSkillAdvancement = ourModSettings.GetValue<bool>("EverydayMagic", "DiversifiedSpellExperienceRequiredForMagicSkillAdvancement");
 
-                                // UNLEVELED SPELLS
+            // UNLEVELED SPELLS
             if (ourModSettings.GetValue<bool>("EverydayMagic", "UnleveledSpellsAndPotions"))
-            {                
+            {
                 MMMFormulaHelper.SendInfoMessagesOnPCSpellLevel = true;     // temporary solution, intention: save these to player log
                 MMMFormulaHelper.SendInfoMessagesOnNonPCSpellLevel = true;  // temporary solution, intention: save these to player log and send message to hud
 
                 SilentMessage("Player-cast levels saved to player.log, non-player cast spells saved to player.log+message to HUD");
-                        // verbosity features set up
+                // verbosity features set up
 
                 FormulaHelper.RegisterOverride(modInstance, "CalculateCasterLevel", (Func<DaggerfallEntity, IEntityEffect, int>)MMMFormulaHelper.GetSpellLevelForGame);
+
+                // regigister new potion item handler, so we can set our custom power level calculation
+                // isPotion from DaggerfallUnityItem.cs uses check for UselessItems1.Glass_Bottle
+                DaggerfallUnity.Instance.ItemHelper.RegisterItemUseHandler((int)UselessItems1.Glass_Bottle, MtUsePotion);
+
             }
 
-                                // MINIMUM SPELLPOINT COST
+            // MINIMUM SPELLPOINT COST
             MMMFormulaHelper.castCostFloor = ourModSettings.GetValue<int>("EverydayMagic", "MinimumSpellPointCost");     // if player has set a minimum that is different to 5
             if (MMMFormulaHelper.castCostFloor != 5)
-            {                
+            {
                 FormulaHelper.RegisterOverride(modInstance, "CalculateTotalEffectCosts", (Func<EffectEntry[], TargetTypes, DaggerfallEntity, bool, FormulaHelper.SpellCost>)MMMFormulaHelper.CalculateTotalEffectCosts);
-                SilentMessage("Minimum spell cost set to: "+ MMMFormulaHelper.castCostFloor);
-                    // consider registering the replacement for CalculateEffectCosts here
+                SilentMessage("Minimum spell cost set to: " + MMMFormulaHelper.castCostFloor);
+                // consider registering the replacement for CalculateEffectCosts here
             }
 
-                            // MAX LENGTH OF DISPLAYED SPELL NAME STRING
-            MTSpellBookWindow.maxLengthOfDisplayedSpellNameString = ourModSettings.GetValue<int>("EverydayMagic", "MaxLengthOfDisplayedSpellNameString");            
+            // MAX LENGTH OF DISPLAYED SPELL NAME STRING
+            MTSpellBookWindow.maxLengthOfDisplayedSpellNameString = ourModSettings.GetValue<int>("EverydayMagic", "MaxLengthOfDisplayedSpellNameString");
 
-                                // DISPLAY EFFECIVE MAGIC SKILL FOR SIMPLE SPELLS IN SPELLBOOK WINDOW
+            // DISPLAY EFFECIVE MAGIC SKILL FOR SIMPLE SPELLS IN SPELLBOOK WINDOW
             MTSpellBookWindow.displayEffectiveMagicSkill = ourModSettings.GetValue<bool>("EverydayMagic", "DisplayEffectiveMagicSkill");
 
-                            // GUILD BASE SPELL FEE COEFFICIENT
+            // GUILD BASE SPELL FEE COEFFICIENT
             MTSpellBookWindow.baseGuildFeeMultiplier = ourModSettings.GetValue<float>("EverydayMagic", "GuildBaseSpellFeeCoefficient");
             MTSpellMakerWindow.baseGuildFeeMultiplier = ourModSettings.GetValue<float>("EverydayMagic", "GuildBaseSpellFeeCoefficient");
 
-                            // SPELL CREATION TIME COEFFICIENT
+            // SPELL CREATION TIME COEFFICIENT
             MTSpellMakerWindow.spellCreationTimeCoefficient = ourModSettings.GetValue<float>("EverydayMagic", "SpellCreationTimeCoefficient");
             MMMFormulaHelper.spellMakerCoefficientFromSettings = ourModSettings.GetValue<float>("EverydayMagic", "SpellCreationTimeCoefficient");
 
-                            // PLAYER SPELL MISSILE SPEED
+            // PLAYER SPELL MISSILE SPEED
             MMMFormulaHelper.SpellMissileSpeedRegime = ourModSettings.GetValue<int>("EverydayMagic", "PlayerSpellMissileSpeed");
-                            // the changes are effectuated when game loaded and then as spells are cast - see at init procedure for game state 1 and code in MMMFormulaHelper and MMMXPTallies      
+            // the changes are effectuated when game loaded and then as spells are cast - see at init procedure for game state 1 and code in MMMFormulaHelper and MMMXPTallies
 
             if (true)           // TODO but can wait : a condition that would be true if the base game has been edited to use my skill&attribute system
             {
@@ -790,6 +803,18 @@ namespace MTMMM
 
 
         }
+
+        //PoC potion calculations, need to move it to different class
+        static bool MtUsePotion(DaggerfallUnityItem item, ItemCollection collection)
+        {
+            SilentMessage("MtUsePotion");
+            MMMFormulaHelper.SetPotionMode(item);
+            GameManager.Instance.PlayerEffectManager.DrinkPotion(item);
+            collection.RemoveOne(item);
+            MMMFormulaHelper.ExitPotionMode();
+            return true;
+        }
+
 
         public static void RegisterOurWindows()
         {
@@ -801,13 +826,6 @@ namespace MTMMM
             }
             else
                 SilentMessage("No need to register MTSpellBookWindow or MTSpellMakerWindow");
-
-            if (ourModSettings.GetValue<bool>("EverydayMagic", "UnleveledSpellsAndPotions"))  // if spells unleveled, need to tackle potions
-            {
-                UIWindowFactory.RegisterCustomUIWindow(UIWindowType.Inventory, typeof(MTInventoryWindow));
-            }
-            else
-                SilentMessage("No need to register MTInventoryWindow");
         }
         #endregion
 
@@ -817,7 +835,7 @@ namespace MTMMM
         {
             baseFixedDeltaTime = Time.fixedDeltaTime;
             baseTimeScale = Time.timeScale;
-            SilentMessage("Initializing Time Accelerator Module. Base timescale = "+ baseTimeScale+"x.");
+            SilentMessage("Initializing Time Accelerator Module. Base timescale = " + baseTimeScale + "x.");
             GameManager.OnEncounter += OnEncounter;
         }
 
@@ -847,11 +865,11 @@ namespace MTMMM
                     Message("Plus pushed: running at " + timeAcceleratorMultiple + "x normal speed (" + Time.timeScale + "x timescale).");
                 }
             }
-                        // work in progress
+            // work in progress
             int currentDiseaseCount = GameManager.Instance.PlayerEffectManager.DiseaseCount;
             if (currentDiseaseCount != diseaseCount)
             {
-                if ((currentDiseaseCount > diseaseCount) && (timeAcceleratorMultiple>1))
+                if ((currentDiseaseCount > diseaseCount) && (timeAcceleratorMultiple > 1))
                 {
                     timeAcceleratorMultiple = 1;
                     SetTimeScale(1);
@@ -860,14 +878,14 @@ namespace MTMMM
                 diseaseCount = currentDiseaseCount;
             }
 
-            if (InputManager.Instance.GetKeyDown(KeyCode.KeypadMinus) )
+            if (InputManager.Instance.GetKeyDown(KeyCode.KeypadMinus))
             {
                 timeAcceleratorMultiple = 1;
                 SetTimeScale(timeAcceleratorMultiple);
                 Message("Minus pushed: running at " + timeAcceleratorMultiple + "x normal speed (" + Time.timeScale + "x timescale).");
             }
 
-            if ((GameManager.Instance.AreEnemiesNearby())&&(timeAcceleratorMultiple>1))
+            if ((GameManager.Instance.AreEnemiesNearby()) && (timeAcceleratorMultiple > 1))
             {
                 timeAcceleratorMultiple = 1;
                 SetTimeScale(timeAcceleratorMultiple);
@@ -886,7 +904,7 @@ namespace MTMMM
         }
         #endregion
 
-        #region SaveLoad Methods        
+        #region SaveLoad Methods
 
         public Type SaveDataType
         {
@@ -899,7 +917,7 @@ namespace MTMMM
             {
                 SpellXPTallies = new SpellXPTally[0],
                 SpellEffectConfidentialityLevels = new Dictionary<uint, Dictionary<string, int>>()
-            };            
+            };
             return dataToReturn;
         }
 
@@ -968,4 +986,3 @@ namespace MTMMM
         #endregion
     }
 }
- 
